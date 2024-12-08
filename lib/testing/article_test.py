@@ -1,4 +1,9 @@
+import sys
+import os
 import pytest
+
+# Add the project root directory to sys.path to ensure the classes module is found
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../..')))
 
 from classes.many_to_many import Article
 from classes.many_to_many import Magazine
@@ -24,13 +29,13 @@ class TestArticle:
         magazine = Magazine("Vogue", "Fashion")
         article_1 = Article(author, magazine, "How to wear a tutu with style")
 
-        # comment out the next two lines if using Exceptions
+        # Test that the title cannot be changed to a non-string
         article_1.title = 500
         assert article_1.title == "How to wear a tutu with style"
         
         assert isinstance(article_1.title, str)
 
-        # uncomment the next two lines if using Exceptions
+        # Uncomment to raise Exception if an invalid type is passed
         # with pytest.raises(Exception):
         #     Article(author, magazine, 500)
 
@@ -42,11 +47,11 @@ class TestArticle:
 
         assert 5 <= len(article_1.title) <= 50
 
-        # uncomment the next two lines if using Exceptions
+        # Uncomment to raise Exception for invalid title lengths
         # with pytest.raises(Exception):
         #     Article(author, magazine, "Test")
 
-        # uncomment the next two lines if using Exceptions
+        # Uncomment to raise Exception for overly long titles
         # with pytest.raises(Exception):
         #     Article(author, magazine, "How to wear a tutu with style and walk confidently down the street")
 
